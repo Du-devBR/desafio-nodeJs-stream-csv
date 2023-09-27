@@ -1,0 +1,13 @@
+{
+  "name": "desafio-nodejs-stream-csv",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "![GitHub repo size](https://img.shields.io/github/repo-size/Du-devBR/desafio-nodeJs-stream-csv)\r ![GitHub language count](https://img.shields.io/github/languages/count/Du-devBR/desafio-nodeJs-stream-csv)\r ![GitHub forks](https://img.shields.io/github/forks/Du-devBR/desafio-nodeJs-stream-csv)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
