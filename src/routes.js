@@ -33,13 +33,64 @@ export const routes = [
     }
   },
   {
+    method: 'PUT',
+    path: buildRoutePath('/tasks/:id'),
+    handler: (req, res) => {
+      const { id } = req.params
+      const { title, description } = req.body
+
+      const selectTask = database.select('tasks', { id })[0]
+
+      if (selectTask) {
+        database.update('tasks', id, {
+          title: title || selectTask.title,
+          description: description || selectTask.description,
+          created_at: selectTask.created_at,
+          updated_at: new Date(),
+          completed_at: null
+        })
+        return res.writeHead(204).end('Editada com sucesso ')
+      }
+      return res.writeHead(404).end("Tarefa não encontrada")
+
+    }
+  },
+  {
     method: 'DELETE',
     path: buildRoutePath('/tasks/:id'),
     handler: (req, res) => {
       const { id } = req.params
-      database.delete('tasks', id)
-      return res.writeHead(204).end('Excluido com sucesso ')
-    }
 
-  }
+      const selectTask = database.select('tasks', { id })[0]
+
+      if (selectTask) {
+        database.delete('tasks', id)
+        return res.writeHead(204).end('Excluido com sucesso ')
+      }
+      return res.writeHead(404).end('Falha ao excluir ')
+    }
+  },
+  {
+    method: 'PATCH',
+    path: buildRoutePath('/tasks/:id/complete'),
+    handler: (req, res) => {
+      const { id } = req.params
+      const { status } = req.query
+
+      const selectTask = database.select('tasks', { id })[0]
+
+      if (selectTask) {
+        database.update('tasks', id, {
+          title: selectTask.title,
+          description: selectTask.description,
+          created_at: selectTask.created_at,
+          updated_at: new Date(),
+          completed_at: status === 'true' ? new Date() : status === 'false' ? null : null
+        })
+        return res.writeHead(204).end("Editada com sucesso")
+      }
+      return res.writeHead(404).end("Tarefa não encontrada")
+
+    }
+  },
 ]
