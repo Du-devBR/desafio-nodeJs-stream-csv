@@ -8,16 +8,20 @@ export const routes = [
     path: buildRoutePath('/tasks'),
     handler: (req, res) => {
       const { title, description } = req.body
-      const task = {
-        id: randomUUID(),
-        title,
-        description,
-        created_at: new Date(),
-        updated_at: new Date(),
-        completed_at: null,
+      if (title && description) {
+        const task = {
+          id: randomUUID(),
+          title,
+          description,
+          created_at: new Date(),
+          updated_at: new Date(),
+          completed_at: null,
+        }
+        database.insert('tasks', task)
+        return res.end("Criação de tarefa")
       }
-      database.insert('tasks', task)
-      return res.end("Criação de tarefa")
+      return res.writeHead(404).end('Erro ao criar tarefa, campos invalido')
+
     }
   },
   {
@@ -49,7 +53,7 @@ export const routes = [
           updated_at: new Date(),
           completed_at: null
         })
-        return res.writeHead(204).end('Editada com sucesso ')
+        return res.end('Editada com sucesso ')
       }
       return res.writeHead(404).end("Tarefa não encontrada")
 
@@ -65,7 +69,7 @@ export const routes = [
 
       if (selectTask) {
         database.delete('tasks', id)
-        return res.writeHead(204).end('Excluido com sucesso ')
+        return res.end('Excluido com sucesso ')
       }
       return res.writeHead(404).end('Falha ao excluir ')
     }
@@ -87,7 +91,7 @@ export const routes = [
           updated_at: new Date(),
           completed_at: status === 'true' ? new Date() : status === 'false' ? null : null
         })
-        return res.writeHead(204).end("Editada com sucesso")
+        return res.end("Status alterado com sucesso")
       }
       return res.writeHead(404).end("Tarefa não encontrada")
 
