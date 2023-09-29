@@ -54,6 +54,112 @@ Rotas:
   Deve ser possível marcar a task como completa ou não. Isso significa que se a task estiver concluída, deve voltar ao seu estado “normal”.
   Antes da alteração, deve ser feito uma validação se o `id` pertence a uma task salva no banco de dados.
 
+## 💻 Como usar o projeto
+
+Para rodar o projeto precisará realizar os procedimentos abaixo
+
+1 clone o projeto
+
+```
+git clone https://github.com/Du-devBR/desafio-nodeJs-stream-csv.git
+```
+
+2 Terminal
+
+```
+cd .\desafio-nodeJs-stream-csv
+```
+
+3 Instale as dependências necessárias com o comando
+
+```
+npm install
+```
+
+4 Rode o servidor da api
+
+```
+npm run dev
+```
+
+5 Use uma ferramenta de testes de api ou integre a um projeto frontend
+
+6 Importe a Collection Api Task [Collection](./Insomnia_tasksTest.json)
+
+### Crie tarefas atraves da rota `POST`
+
+```
+http://localhost:3333/tasks
+```
+
+Body da requisição
+
+```
+{
+	"title": "tarefa01",
+	"description": "Descrição da tarefa 01"
+}
+```
+
+### Busque todas as tarefas atraves da rota `GET`
+
+```
+http://localhost:3333/tasks
+```
+
+### Pesquise por nome da tarefa ou texto atraves do `search` atraves da rota `GET`
+
+```
+http://localhost:3333/tasks
+```
+
+Adiciobe a query `search` e escreva o parametro de pesquisa, exemplo:
+
+```
+http://localhost:3333/tasks?search=tarefa01
+```
+
+### Atualize uma tarefa pelo `id` atraves da rota `PUT`
+
+```
+http://localhost:3333/tasks/*subtituaPeloID*
+
+```
+
+Body da requisição
+
+```
+{
+	"title": "Task 01",
+	"description": "Mofificado tarefa 01"
+}
+```
+
+### Complete uma tarefa pelo `id` atraves da rota `PATCH`
+
+```
+http://localhost:3333/tasks/*subtituaPeloID*/complete
+
+```
+
+Altera a query `status` para o valor de:
+
+```
+true
+```
+
+ou
+
+```
+false
+```
+
+### Delete uma tarefa pelo `id` atraves da rota `DELETE`
+
+```
+http://localhost:3333/tasks/*subtituaPeloID*
+```
+
 ## 🌐 Links úteis
 
 [NodeJs](https://nodejs.org/en)
